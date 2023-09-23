@@ -9,7 +9,7 @@
                 <h1 class="mt-2  text-2xl font-bold text-center leading-tight tracking-tight text-crow">
                     Inicio de sesión
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="#">
+                <form class="space-y-4 md:space-y-6">
                     <div class="mt-3">
                         <label class="label label-text" for="rol">Rol:</label>
                         <select class="select w-full ">
@@ -19,7 +19,7 @@
                         </select>
                     </div>
                     <div class="mt-3">
-                        <label for="numeroDocumento">
+                        <label class="label label-text" for="numeroDocumento">
                             Numero de Documento:
                         </label>
                         <input v-model="documento" type="text" maxlength="12" name="numeroDocumento" id="numeroDocumento"
@@ -27,7 +27,7 @@
                             placeholder="Ejemplo: 1111234567" required="">
                     </div>
                     <div class="mt-3">
-                        <label for="password">
+                        <label class="label label-text" for="password">
                             Contraseña:
                         </label>
                         <input v-model="password" type="password" maxlength="12" name="password" id="password"
@@ -35,11 +35,12 @@
                             placeholder="barberiaxd" required="">
                     </div>
                     <button type="submit"
+                    @click="this.$router.push({ name: 'tabla-clientes' })"
                         class="w-full bg-base-100 font-medium rounded lg text-sm px-5 py-2 5 text-center">Ingresar</button>
                 </form>
 
             </div>
-            <div v-if="error" class="mt-4 text-[red]">
+            <div v-if="error" class="mt-4 text-error">
                 <p>Documento no entrado</p>
             </div>
             <div class="text-center text-sm mt-5">
