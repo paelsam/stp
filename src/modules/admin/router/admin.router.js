@@ -3,6 +3,7 @@ import ClientesView from '../views/ClientesView.vue'
 import EmpleadosView from '../views/EmpleadosView.vue'
 import ServiciosView from '../views/ServiciosView.vue'
 import AdminSettingsView from '../views/AdminSettingsView.vue'
+import TurnosView from '../views/TurnosView.vue'
 
 export default {
     name: 'admin-dashboard',
@@ -22,6 +23,11 @@ export default {
             path: 'servicios',
             name: 'tabla-servicios',
             component: ServiciosView
+        },
+        {
+            path: 'turnos',
+            name: 'tabla-turnos',
+            component: TurnosView
         },
         {
             path: 'ajustes',

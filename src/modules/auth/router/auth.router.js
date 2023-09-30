@@ -4,9 +4,9 @@ export default {
     component: () => import('../layouts/AuthLayout.vue'),
     children: [
         {
-           path: '',
-           name: 'auth-options',
-           component: () => import('../views/OptionsView.vue')
+            path: '',
+            name: 'auth-options',
+            component: () => import('../views/OptionsView.vue')
         },
         {
             path: 'cliente',

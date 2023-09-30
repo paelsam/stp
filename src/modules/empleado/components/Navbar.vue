@@ -19,11 +19,8 @@
                 <div class="flex-none hidden lg:block">
                     <ul class="menu menu-horizontal">
                         <!-- Navbar menu content here -->
-                        <li><RouterLink :to="{ name: 'tabla-clientes' }">Clientes</RouterLink></li>
-                        <li><RouterLink :to="{ name: 'tabla-empleados' }">Empleados</RouterLink></li>
-                        <li><RouterLink :to="{ name: 'tabla-servicios' }">Servicios</RouterLink></li>
-                        <li><RouterLink :to="{ name: 'tabla-turnos' }">Turnos</RouterLink></li>
-                        <li><RouterLink :to="{ name: 'ajustes-admin' }">Ajustes</RouterLink></li>
+                        <li><RouterLink :to="{ name: 'tabla-turnos-empleado' }">Turnos</RouterLink></li>
+                        <li><RouterLink :to="{ name: 'ajustes-empleado' }">Ajustes</RouterLink></li>
                         <li>
                             <a href="#" class="text-error">
                                 <i class="fa-solid fa-power-off"></i>
@@ -38,11 +35,8 @@
             <label for="my-drawer-3" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 min-h-full bg-base-200">
                 <!-- Sidebar content here -->
-                <li><RouterLink :to="{ name: 'tabla-clientes' }">Clientes</RouterLink></li>
-                <li><RouterLink :to="{ name: 'tabla-empleados' }">Empleados</RouterLink></li>
-                <li><RouterLink :to="{ name: 'tabla-servicios' }">Servicios</RouterLink></li>
-                <li><RouterLink :to="{ name: 'tabla-turnos' }">Turnos</RouterLink></li>
-                <li><RouterLink :to="{ name: 'ajustes-admin' }">Ajustes</RouterLink></li>
+                <li><RouterLink :to="{ name: 'tabla-turnos-empleado' }">Turnos</RouterLink></li>
+                <li><RouterLink :to="{ name: 'ajustes-empleado' }">Ajustes</RouterLink></li>
                 <li>
                     <a href="#" class="text-error">
                         <i class="fa-solid fa-power-off"></i>

@@ -1,13 +1,16 @@
+
 <template>
-    <ServiciosTable />
+    <TurnosTable/>
 </template>
+
 
 <script>
 import { defineAsyncComponent } from 'vue';
 
+
 export default {
     components: {
-        ServiciosTable: defineAsyncComponent(() => import('../components/ServiciosTable.vue'))
+        TurnosTable: defineAsyncComponent(() => import('../components/TurnosTable.vue'))
     }
 }
 </script>

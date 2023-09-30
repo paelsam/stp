@@ -12,8 +12,8 @@
                 <form class="space-y-4 md:space-y-6">
                     <div class="mt-3">
                         <label class="label label-text" for="rol">Rol:</label>
-                        <select class="select w-full ">
-                            <option disabled selected>Elige un rol</option>
+                        <select v-model="rol"  class="select w-full ">
+                            <option disabled selected value="">Elige un rol</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Empleado">Empleado</option>
                         </select>
@@ -35,7 +35,7 @@
                             placeholder="barberiaxd" required="">
                     </div>
                     <button type="submit"
-                    @click="this.$router.push({ name: 'tabla-clientes' })"
+                    @click="pushURL"
                         class="w-full bg-base-100 font-medium rounded lg text-sm px-5 py-2 5 text-center">Ingresar</button>
                 </form>
 
@@ -66,5 +66,15 @@ export default {
             rol: ''
         }
     },
+
+    methods: {
+        pushURL() {
+            if ( this.rol == 'Empleado' )
+                this.$router.push({ name: 'tabla-turnos-empleado' })
+            else 
+                this.$router.push({ name: 'tabla-clientes' })
+
+        }
+    }
 }
 </script>
