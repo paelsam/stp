@@ -5,7 +5,7 @@
             <!-- head -->
             <thead>
                 <tr class="text-center">
-                    <th>ID</th>
+                    <th>Numero Turno</th>                    
                     <th>Cliente</th>
                     <th>Empleado</th>
                     <th>Servicio</th>
@@ -30,3 +30,9 @@
         </table>
     </div>
 </template>
+
+<script setup> 
+
+
+
+</script>

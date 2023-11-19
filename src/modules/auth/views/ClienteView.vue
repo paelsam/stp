@@ -9,42 +9,52 @@
                 <h1 class=" text-lg font-bold text-center leading-tight tracking-tight">
                     Consultar cita cliente
                 </h1>
-                <form class="space-y-4 md:space-y-6">
+                <form class="space-y-4 md:space-y-6" @submit.prevent="onSubmit">
                     <div class="mt-3">
-                        <label class="label-text"  for="numeroDocumento">
+                        <label class="label-text" for="numeroDocumento">
                             Numero de Documento:
                         </label>
-                        <input type="text" maxlength="12" name="numeroDocumento" id="numeroDocumento"
-                            class="input sm:text-sm rounded-lg block w-full p-2.5"
-                            placeholder="Ejemplo: 1111234567" required="">
+                        <input type="text" v-model="numeroDocumento" maxlength="12" name="numeroDocumento"
+                            id="numeroDocumento" class="input sm:text-sm rounded-lg block w-full p-2.5"
+                            placeholder="Ejemplo: 1111234567" required>
                     </div>
-                    <button type="submit"
-                        class="btn w-full border-2 bg-base-100">Buscar</button>
+                    <button type="submit" class="btn w-full border-2 bg-base-100">Buscar</button>
                 </form>
-
-            </div>
-            <div v-if="error" class="mt-4 text-error">
-                <p>Documento no entrado</p>
-            </div>
-            <div class="text-center text-sm mt-5">
-                En caso de no estar registrado, ve a la peluquería a registrarte.
             </div>
         </div>
     </section>
 </template>
 
 
-<script>
-import { defineAsyncComponent } from 'vue';
+<script setup>
 
-export default {
-    components: {
-        Icon: defineAsyncComponent(() => import('@/components/Icon.vue'))
-    },
-    data() {
-        return {
-            error: true,
-        }
+import { reactive, ref } from 'vue';
+import Icon from '@/components/Icon.vue'
+import useAuth from '../composables/useAuth';
+import Swal from 'sweetalert2'
+
+const { findTurnoCliente } = useAuth();
+
+const numeroDocumento = ref('');
+const turnoCliente = ref({});
+
+const onSubmit = async () => {
+    const { ok, message, turno } = await findTurnoCliente(numeroDocumento.value);
+
+    if (!ok) {
+        Swal.fire('Error', message, 'error');
+    } else {
+        turnoCliente.value = turno;
+        Swal.fire({
+            title: `Tienes el turno ${turnoCliente.value.numero_turno}`,
+            html: `
+                Tu barbero es: <b>${turnoCliente.value.Empleado.nombre}.</b><br>
+                Estado del turno: <b>${turnoCliente.value.estado}.</b>
+            `,
+            icon: "success"
+        });
     }
+
 }
+
 </script>

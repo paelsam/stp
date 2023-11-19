@@ -9,20 +9,20 @@
                 <h1 class="mt-2  text-2xl font-bold text-center leading-tight tracking-tight text-crow">
                     Inicio de sesión
                 </h1>
-                <form class="space-y-4 md:space-y-6">
+                <form @submit.prevent="onSubmit" class="space-y-4 md:space-y-6">
                     <div class="mt-3">
                         <label class="label label-text" for="rol">Rol:</label>
-                        <select v-model="rol"  class="select w-full ">
+                        <select v-model="useForm.rol" class="select w-full" required>
                             <option disabled selected value="">Elige un rol</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Empleado">Empleado</option>
                         </select>
                     </div>
                     <div class="mt-3">
-                        <label class="label label-text" for="numeroDocumento">
-                            Numero de Documento:
+                        <label class="label label-text" for="correo">
+                            Correo Electrónico:
                         </label>
-                        <input v-model="documento" type="text" maxlength="12" name="numeroDocumento" id="numeroDocumento"
+                        <input v-model="useForm.email" type="email" name="correo" id="correo"
                             class="input border-2 sm:text-sm rounded-lg block w-full p-2.5"
                             placeholder="Ejemplo: 1111234567" required="">
                     </div>
@@ -30,51 +30,49 @@
                         <label class="label label-text" for="password">
                             Contraseña:
                         </label>
-                        <input v-model="password" type="password" maxlength="12" name="password" id="password"
-                            class="input border-2 sm:text-sm rounded-lg block w-full p-2.5"
-                            placeholder="barberiaxd" required="">
+                        <input v-model="useForm.password" type="password" maxlength="12" name="password" id="password"
+                            class="input border-2 sm:text-sm rounded-lg block w-full p-2.5" placeholder="barberiaxd"
+                            required="">
                     </div>
                     <button type="submit"
-                    @click="pushURL"
                         class="w-full bg-base-100 font-medium rounded lg text-sm px-5 py-2 5 text-center">Ingresar</button>
                 </form>
-
-            </div>
-            <div v-if="error" class="mt-4 text-error">
-                <p>Documento no entrado</p>
             </div>
             <div class="text-center text-sm mt-5">
-                En caso de no estar registrado, contacta al administrador de la peluquería.
+                En caso de no estar registrado, contacta al administrador.
             </div>
         </div>
     </section>
 </template>
 
-<script>
-import { defineAsyncComponent } from 'vue';
+<script setup>
 
-export default {
-    components: {
-        Icon: defineAsyncComponent(() => import('../../../components/Icon.vue')),
-    },
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
+import Icon from '@/components/Icon.vue';
+import useAuth from '../composables/useAuth'
 
-    data() {
-        return {
-            error: false,
-            documento: '',
-            password: '',
-            rol: ''
-        }
-    },
 
-    methods: {
-        pushURL() {
-            if ( this.rol == 'Empleado' )
-                this.$router.push({ name: 'tabla-turnos-empleado' })
-            else 
-                this.$router.push({ name: 'tabla-clientes' })
+const router = useRouter();
+const { loginUsuario } = useAuth();
 
-        }
+const useForm = ref({
+    rol: '',
+    email: '',
+    password: ''
+})
+
+const onSubmit = async () => {
+    const { ok, message } = await loginUsuario(useForm.value);
+
+    if ( !ok ) Swal.fire('Error', message, 'error');
+    else {
+        if ( useForm.value.rol === 'Administrador' ) 
+            router.push({ name: 'admin-dashboard'})
+        else if ( useForm.value.rol === 'Empleado' )
+            router.push({ name: 'tabla-turnos-empleado' })
     }
 }
+
 </script>

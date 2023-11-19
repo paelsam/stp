@@ -22,7 +22,7 @@
                         <li><RouterLink :to="{ name: 'tabla-turnos-empleado' }">Turnos</RouterLink></li>
                         <li><RouterLink :to="{ name: 'ajustes-empleado' }">Ajustes</RouterLink></li>
                         <li>
-                            <a href="#" class="text-error">
+                            <a @click="onLogout" href="#" class="text-error">
                                 <i class="fa-solid fa-power-off"></i>
                                 Cerrar Sesión
                             </a>
@@ -38,7 +38,7 @@
                 <li><RouterLink :to="{ name: 'tabla-turnos-empleado' }">Turnos</RouterLink></li>
                 <li><RouterLink :to="{ name: 'ajustes-empleado' }">Ajustes</RouterLink></li>
                 <li>
-                    <a href="#" class="text-error">
+                    <a @click="onLogout"  href="#" class="text-error">
                         <i class="fa-solid fa-power-off"></i>
                         Cerrar Sesión
                     </a>
@@ -49,13 +49,17 @@
     </div>
 </template>
 
-<script>
-import { defineAsyncComponent } from 'vue';
+<script setup>
+import Icon from '@/components/Icon.vue'
+import { useRouter } from 'vue-router';
+import useAuth from '../../auth/composables/useAuth';
 
-export default {
-    components: {
-        Icon: defineAsyncComponent(() => import('@/components/Icon.vue'))
-    }
 
+const router = useRouter();
+const { logout } = useAuth();
+
+const onLogout = () => {
+    router.push({ name: 'landing' })
+    logout();
 }
 </script>
